@@ -1,0 +1,22 @@
+{
+  "name": "model-routing-ts",
+  "version": "1.0.0",
+  "description": "Latency-controlled Gemini model router (TypeScript mirror of the Python version)",
+  "type": "module",
+  "scripts": {
+    "start": "tsx server.ts",
+    "demo": "tsx demo.ts",
+    "probe": "tsx probeModels.ts",
+    "bench": "tsx benchmark.ts"
+  },
+  "dependencies": {
+    "@google/genai": "^1.0.0",
+    "express": "^4.19.0"
+  },
+  "devDependencies": {
+    "tsx": "^4.0.0",
+    "typescript": "^5.0.0",
+    "@types/node": "^22.0.0",
+    "@types/express": "^4.17.0"
+  }
+}

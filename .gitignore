@@ -1,0 +1,26 @@
+# --- Secrets (NEVER commit) ---
+.env
+.env.local
+*.key
+
+# --- Python ---
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+venv/
+.pytest_cache/
+
+# --- Node ---
+node_modules/
+npm-debug.log*
+dist/
+
+# --- OS / editor ---
+.DS_Store
+Thumbs.db
+*.log
+
+# --- Local agent tooling (not part of the submission) ---
+.agents/
+.gemini/
