@@ -1,14 +1,16 @@
 import Image from "next/image";
 
 import AskMe from "@/components/AskMe";
-import Hero3D from "@/components/scene/Hero3D";
-import { Card, Field, Label, Section, Tag } from "@/components/ui";
+import Portrait from "@/components/Portrait";
+import ThemeToggle from "@/components/ThemeToggle";
+import Backdrop from "@/components/scene/Backdrop";
+import { Card, Chip, Field, Section } from "@/components/ui";
 import { profile, publicProfile, real } from "@/lib/profile";
 
 /**
  * Structured data. Between this, /api/profile and the AI endpoint, the link
  * carries the same facts three ways: for search engines, for machines, and for
- * people who'd rather just ask a question.
+ * people who would rather just ask a question.
  */
 function PersonJsonLd() {
   const p = publicProfile();
@@ -28,6 +30,7 @@ function PersonJsonLd() {
     alumniOf: { "@type": "EducationalOrganization", name: profile.education[0]?.institution },
     sameAs: [real(profile.contact.linkedin), real(profile.contact.github)].filter(Boolean),
     knowsAbout: profile.coreAreas,
+    award: profile.awards.map((a) => a.name),
   };
 
   return (
@@ -35,150 +38,116 @@ function PersonJsonLd() {
   );
 }
 
-function TopBar() {
+/** Apple's global nav: thin, translucent, always available. */
+function Nav() {
+  const links = [
+    ["About", "#about"],
+    ["Experience", "#experience"],
+    ["Projects", "#projects"],
+    ["Skills", "#skills"],
+    ["Contact", "#contact"],
+  ];
+
   return (
-    <div className="fixed inset-x-0 top-0 z-50 border-b border-rule/70 bg-page/80 backdrop-blur">
-      <div className="mx-auto flex max-w-6xl items-center justify-between gap-4 px-6 py-3">
-        <Label className="hidden sm:block">Sep ©2026</Label>
-        <a href="#top" className="label !text-ink truncate">
+    <header className="material sticky top-0 z-50 border-b border-separator">
+      <nav className="mx-auto flex h-12 max-w-5xl items-center gap-6 px-6">
+        <a href="#top" className="text-[0.95rem] font-semibold tracking-[-0.01em]">
           {profile.shortName}
         </a>
-        <Label className="hidden truncate sm:block">{profile.headline}</Label>
-        <nav className="flex gap-4 sm:hidden">
-          <a href="#ask" className="label !text-accent-soft">
+        <ul className="hidden flex-1 items-center justify-center gap-7 md:flex">
+          {links.map(([label, href]) => (
+            <li key={href}>
+              <a
+                href={href}
+                className="text-[0.8125rem] text-label-2 transition-colors hover:text-label"
+              >
+                {label}
+              </a>
+            </li>
+          ))}
+        </ul>
+        <div className="ml-auto flex items-center gap-2 md:ml-0">
+          <a href="#ask" className="text-[0.8125rem] text-accent md:hidden">
             Ask
           </a>
-          <a href="#contact" className="label">
-            Contact
-          </a>
-        </nav>
-        <nav className="hidden gap-5 md:flex">
-          {[
-            ["About", "#about"],
-            ["Work", "#experience"],
-            ["Projects", "#projects"],
-            ["Ask", "#ask"],
-            ["Contact", "#contact"],
-          ].map(([label, href]) => (
-            <a key={href} href={href} className="label transition-colors hover:!text-ink">
-              {label}
-            </a>
-          ))}
-        </nav>
-      </div>
-    </div>
-  );
-}
-
-function Hero() {
-  const resumeUrl = profile.resume?.url;
-  // The name carries the hero, split across the two faces of the pairing.
-  const [firstName, ...restOfName] = profile.name.split(" ");
-  const surname = restOfName.join(" ");
-
-  return (
-    <header id="top" className="grain relative overflow-hidden pt-14">
-      <Hero3D />
-      <div className="relative z-10 mx-auto grid w-full max-w-6xl items-center gap-10 px-6 pb-16 pt-14 md:grid-cols-[1fr_1.05fr] md:gap-14 md:pb-24 md:pt-20">
-        <div>
-          <div>
-            <Label>
-              01 <span className="text-rule">/</span> 07
-            </Label>
-          </div>
-
-          {profile.openToWork?.active && (
-            <p className="mt-6 inline-flex items-center gap-2 border border-accent/40 px-3 py-1.5 font-mono text-xs tracking-wider text-ink">
-              <span className="h-1.5 w-1.5 rounded-full bg-accent" />
-              {profile.openToWork.blurb}
-            </p>
-          )}
-
-          <h1 className="mt-6">
-            <span className="grotesk block text-[clamp(2.9rem,8.6vw,6.1rem)]">{firstName}</span>
-            <span className="display block text-[clamp(3rem,9.4vw,7rem)] italic text-ink-soft">
-              {surname}
-            </span>
-          </h1>
-
-          <p className="label mt-7 !text-ink" style={{ letterSpacing: "0.3em" }}>
-            {profile.headline}
-          </p>
-
-          <p className="mt-5 max-w-xl text-lg leading-relaxed text-ink-soft">
-            <Field value={profile.specialism} />.{" "}
-            <span className="font-medium text-ink">
-              <Field value={profile.tagline} />
-            </span>
-          </p>
-
-          <p className="mt-4 max-w-xl leading-relaxed text-muted">
-            {profile.yearsExperience} years across core banking systems, legacy reporting
-            modernization and data engineering in a regulated BFSI environment.
-          </p>
-
-          <div className="mt-9 flex flex-wrap gap-3">
-            <a
-              href="#ask"
-              className="bg-ink px-6 py-3 font-medium text-page transition-colors hover:bg-ink-soft"
-            >
-              Ask about me
-            </a>
-            {resumeUrl && (
-              <a
-                href={resumeUrl}
-                download
-                className="border border-rule px-6 py-3 font-medium transition-colors hover:border-ink"
-              >
-                Résumé
-              </a>
-            )}
-            <a
-              href={`mailto:${profile.contact.email}`}
-              className="border border-rule px-6 py-3 font-medium transition-colors hover:border-ink"
-            >
-              Get in touch
-            </a>
-          </div>
+          <ThemeToggle />
         </div>
-
-        {/* The asset's own edges are blended to --page, so the photograph has
-            no boundary: no frame, no scrim, no mask needed here. */}
-        <div className="relative w-full">
-          <div className="relative aspect-[3/4] w-full overflow-hidden">
-            <Image
-              src={profile.photo}
-              alt={`${profile.name}, ${profile.headline}`}
-              fill
-              priority
-              sizes="(max-width: 768px) 94vw, 580px"
-              className="object-cover"
-            />
-          </div>
-          <div className="mt-2 flex flex-wrap items-baseline justify-between gap-x-6 gap-y-1">
-            <Label>{profile.experience[0]?.company}</Label>
-            <Label>
-              {profile.location} · {profile.pronouns}
-            </Label>
-          </div>
-        </div>
-      </div>
+      </nav>
     </header>
   );
 }
 
+/**
+ * The hero follows Apple's product-page pattern: centred type, then the image
+ * at full width beneath it. The portrait is the largest element on the page.
+ */
+function Hero() {
+  return (
+    <section id="top" className="relative overflow-hidden">
+      <Backdrop />
+
+      <div className="relative z-10 mx-auto max-w-5xl px-6 pt-16 text-center md:pt-24">
+        {profile.openToWork?.active && (
+          <p className="t-eyebrow">{profile.openToWork.blurb}</p>
+        )}
+        <h1 className="t-display mt-3">
+          <Field value={profile.name} />
+        </h1>
+        <p className="t-title mt-3 text-label-2">
+          <Field value={profile.headline} />
+        </p>
+        <p className="t-body-lg mx-auto mt-6 max-w-2xl text-label-2">
+          <Field value={profile.specialism} />. <Field value={profile.tagline} />.
+        </p>
+
+        <div className="mt-8 flex flex-wrap items-center justify-center gap-3">
+          <a href="#ask" className="btn btn-filled">
+            Ask about me
+          </a>
+          <a href="#contact" className="btn btn-tinted">
+            Get in touch
+          </a>
+          {profile.resume?.url && (
+            <a href={profile.resume.url} download className="btn btn-tinted">
+              Résumé
+            </a>
+          )}
+        </div>
+
+        <p className="t-caption mt-6">
+          {profile.location} · {profile.pronouns} · {profile.yearsExperience} years
+        </p>
+      </div>
+
+      {/* The portrait, deliberately the largest thing here. */}
+      <div className="relative z-10 mx-auto mt-8 flex max-w-6xl justify-center px-2 md:mt-6 md:px-4">
+        <Portrait
+          src={profile.photo}
+          alt={`${profile.name}, ${profile.headline}`}
+          width={1265}
+          height={1500}
+          priority
+          sizes="(max-width: 768px) 100vw, 920px"
+          className="h-auto w-full max-w-[920px] object-contain"
+        />
+      </div>
+    </section>
+  );
+}
+
+/** The numbers, as a quiet band between hero and content. */
 function Signals() {
   return (
-    <div className="border-t border-rule">
-      <dl className="mx-auto grid max-w-6xl grid-cols-2 gap-px bg-rule px-6 md:grid-cols-4">
+    <section className="border-y border-separator bg-grouped">
+      <dl className="mx-auto grid max-w-5xl grid-cols-2 gap-8 px-6 py-14 md:grid-cols-4">
         {profile.signals.map((s) => (
-          <div key={s.label} className="bg-page px-1 py-8 md:px-4">
-            <dt className="display text-3xl text-ink md:text-4xl">{s.value}</dt>
-            <dd className="mt-2 text-sm leading-snug text-muted">{s.label}</dd>
+          <div key={s.label}>
+            <dt className="t-title">{s.value}</dt>
+            <dd className="mt-2 text-[0.95rem] leading-snug text-label-2">{s.label}</dd>
           </div>
         ))}
       </dl>
-    </div>
+    </section>
   );
 }
 
@@ -186,57 +155,71 @@ export default function Home() {
   return (
     <>
       <PersonJsonLd />
-      <TopBar />
-      <main id="main" className="flex-1">
+      <Nav />
+
+      <main id="main">
         <Hero />
         <Signals />
 
         <Section
           id="about"
-          index="02"
-          title="About"
-          kicker="Where legacy banking systems meet modern data platforms."
+          eyebrow="About"
+          title="Legacy systems, modern data platforms."
+          standfirst="Four-plus years in a regulated BFSI environment, working the seam between core banking and analytics."
         >
-          <div className="flex flex-col gap-5 text-lg leading-relaxed text-ink-soft">
-            {profile.summaryParagraphs.map((para, i) => (
-              <p key={i} className={i === 0 ? "text-ink" : undefined}>
-                <Field value={para} />
-              </p>
-            ))}
+          <div className="grid gap-10 md:grid-cols-[minmax(0,1fr)_minmax(0,17rem)]">
+            <div className="flex flex-col gap-5 text-label-2">
+              {profile.summaryParagraphs.map((para, i) => (
+                <p key={i} className={i === 0 ? "t-body-lg text-label" : undefined}>
+                  <Field value={para} />
+                </p>
+              ))}
+              <ul className="mt-2 flex flex-wrap gap-2">
+                {profile.coreAreas.map((area) => (
+                  <Chip key={area}>{area}</Chip>
+                ))}
+              </ul>
+            </div>
+            <figure className="md:sticky md:top-24 md:self-start">
+              <Image
+                src={profile.photoAbout}
+                alt={profile.name}
+                width={1000}
+                height={1250}
+                sizes="(max-width: 768px) 90vw, 272px"
+                className="w-full rounded-2xl object-cover"
+              />
+              <figcaption className="t-caption mt-3">{profile.location}</figcaption>
+            </figure>
           </div>
-          <ul className="mt-10 flex flex-wrap gap-2">
-            {profile.coreAreas.map((area) => (
-              <Tag key={area}>{area}</Tag>
-            ))}
-          </ul>
         </Section>
 
         <Section
           id="experience"
-          index="03"
-          title="Experience"
-          kicker="Production work in a regulated BFSI environment."
+          eyebrow="Experience"
+          title="Where the work happened."
+          tone="grouped"
         >
-          <div className="flex flex-col gap-4">
+          <div className="flex flex-col gap-5">
             {profile.experience.map((job, i) => (
               <Card key={i}>
-                <div className="flex flex-wrap items-baseline justify-between gap-x-6 gap-y-2">
-                  <h3 className="text-xl">
+                <div className="flex flex-wrap items-baseline justify-between gap-x-6 gap-y-1">
+                  <h3 className="t-headline">
                     <Field value={job.role} />
                   </h3>
-                  <Label>
-                    {job.start} — {job.end}
+                  <p className="t-caption">
+                    {job.start} – {job.end}
                     {job.duration ? ` · ${job.duration}` : ""}
-                  </Label>
+                  </p>
                 </div>
-                <p className="mt-2 text-accent-soft">
+                <p className="mt-1 text-accent">
                   <Field value={job.company} />
                 </p>
-                {job.location && <p className="mt-1 text-sm text-muted">{job.location}</p>}
-                <ul className="mt-6 flex flex-col gap-3">
+                {job.location && <p className="t-caption mt-1">{job.location}</p>}
+                <ul className="mt-5 flex flex-col gap-3 text-label-2">
                   {job.highlights.map((h, j) => (
-                    <li key={j} className="flex gap-3 leading-relaxed text-ink-soft">
-                      <span aria-hidden className="mt-2.5 h-px w-4 shrink-0 bg-accent/60" />
+                    <li key={j} className="flex gap-3">
+                      <span aria-hidden className="mt-2.5 h-1 w-1 shrink-0 rounded-full bg-label-3" />
                       <span>
                         <Field value={h} />
                       </span>
@@ -247,21 +230,34 @@ export default function Home() {
             ))}
           </div>
 
-          <div className="mt-10">
-            <Label>Education</Label>
-            <div className="mt-4 flex flex-col gap-3">
+          <div className="mt-12 grid gap-5 md:grid-cols-2">
+            <div>
+              <h3 className="t-headline mb-4">Education</h3>
               {profile.education.map((e, i) => (
                 <Card key={i}>
-                  <p className="text-lg">
+                  <p className="font-medium">
                     <Field value={e.credential} />
                   </p>
-                  <p className="mt-1 text-ink-soft">
+                  <p className="mt-1 text-label-2">
                     <Field value={e.institution} />
                   </p>
-                  <p className="mt-2 font-mono text-xs tracking-wider text-muted">
+                  <p className="t-caption mt-2">
                     {[e.start, e.end].filter(Boolean).join(" – ")}
                     {e.grade ? ` · ${e.grade}` : ""}
                   </p>
+                </Card>
+              ))}
+            </div>
+            <div>
+              <h3 className="t-headline mb-4">Recognition</h3>
+              {profile.awards.map((a) => (
+                <Card key={a.name}>
+                  <p className="font-medium">{a.name}</p>
+                  <p className="mt-1 text-label-2">
+                    {a.issuer}
+                    {a.date ? ` · ${a.date}` : ""}
+                  </p>
+                  {a.citation && <p className="t-caption mt-3 leading-relaxed">{a.citation}</p>}
                 </Card>
               ))}
             </div>
@@ -270,20 +266,19 @@ export default function Home() {
 
         <Section
           id="projects"
-          index="04"
-          title="Projects"
-          kicker="Built outside production work, to the same standard."
+          eyebrow="Projects"
+          title="Built outside production, to the same standard."
         >
-          <div className="flex flex-col gap-4">
+          <div className="flex flex-col gap-5">
             {profile.projects.map((p) => (
               <Card key={p.name}>
-                <div className="flex flex-wrap items-baseline justify-between gap-x-6 gap-y-2">
-                  <h3 className="text-xl">{p.name}</h3>
-                  {p.period && <Label>{p.period}</Label>}
+                <div className="flex flex-wrap items-baseline justify-between gap-x-6 gap-y-1">
+                  <h3 className="t-headline">{p.name}</h3>
+                  {p.period && <p className="t-caption">{p.period}</p>}
                 </div>
-                <p className="mt-4 text-lg leading-relaxed text-ink-soft">{p.summary}</p>
+                <p className="t-body-lg mt-4 text-label-2">{p.summary}</p>
                 {p.detail.length > 0 && (
-                  <div className="mt-4 flex flex-col gap-3 leading-relaxed text-muted">
+                  <div className="mt-4 flex flex-col gap-3 text-label-2">
                     {p.detail.map((d, i) => (
                       <p key={i}>{d}</p>
                     ))}
@@ -292,7 +287,7 @@ export default function Home() {
                 {p.stack.length > 0 && (
                   <ul className="mt-6 flex flex-wrap gap-2">
                     {p.stack.map((s) => (
-                      <Tag key={s}>{s}</Tag>
+                      <Chip key={s}>{s}</Chip>
                     ))}
                   </ul>
                 )}
@@ -303,61 +298,53 @@ export default function Home() {
 
         <Section
           id="skills"
-          index="05"
-          title="Capability"
-          kicker="What I work with, and what I'm certified in."
+          eyebrow="Capability"
+          title="What I work with."
+          tone="grouped"
         >
-          <div className="grid gap-4 sm:grid-cols-2">
+          <div className="grid gap-5 md:grid-cols-2">
             {profile.skills.map((group) => (
               <Card key={group.group}>
-                <h3 className="text-lg">
+                <h3 className="t-headline">
                   <Field value={group.group} />
                 </h3>
                 <ul className="mt-4 flex flex-wrap gap-2">
                   {group.items.map((item) => (
-                    <Tag key={item}>{item}</Tag>
+                    <Chip key={item}>{item}</Chip>
                   ))}
                 </ul>
               </Card>
             ))}
           </div>
 
-          <div className="mt-10">
-            <Label>Certifications</Label>
-            <ul className="mt-4 divide-y divide-rule border-y border-rule">
-              {profile.certifications.map((c) => (
-                <li key={c.name} className="flex flex-wrap items-baseline justify-between gap-x-6 gap-y-1 py-4">
-                  <span className="text-ink-soft">{c.name}</span>
-                  <Label>
-                    {c.issuer}
-                    {c.issued ? ` · ${c.issued}` : ""}
-                  </Label>
-                </li>
-              ))}
-            </ul>
-          </div>
+          <h3 className="t-headline mt-12 mb-4">Certifications</h3>
+          <ul className="card divide-y divide-separator">
+            {profile.certifications.map((c) => (
+              <li
+                key={c.name}
+                className="flex flex-wrap items-baseline justify-between gap-x-6 gap-y-1 px-6 py-4"
+              >
+                <span>{c.name}</span>
+                <span className="t-caption">
+                  {c.issuer}
+                  {c.issued ? ` · ${c.issued}` : ""}
+                </span>
+              </li>
+            ))}
+          </ul>
         </Section>
 
         <Section
           id="ask"
-          index="06"
-          title="Ask"
-          kicker="A live model, grounded strictly in the facts on this page."
+          eyebrow="Ask"
+          title="Rather than read it all, ask."
+          standfirst="Answers come from a live model grounded strictly in the facts on this page. If something isn't listed here, it will say so instead of guessing."
         >
-          <p className="mb-6 max-w-2xl leading-relaxed text-muted">
-            Rather than read the whole page, ask a question. If something
-            isn&apos;t listed here, it will say so instead of guessing.
-          </p>
           <AskMe />
         </Section>
 
-        <Section
-          id="contact"
-          index="07"
-          title="Contact"
-          kicker={`Open to ${profile.openToWork.titles.slice(0, 2).join(" and ")} roles.`}
-        >
-          <div className="flex flex-col gap-px bg-rule">
+        <Section id="contact" eyebrow="Contact" title="Get in touch." tone="grouped">
+          <ul className="card divide-y divide-separator">
             {[
               ["Email", profile.contact.email, `mailto:${profile.contact.email}`],
               ["Phone", profile.contact.phone, `tel:${profile.contact.phone?.replace(/\s/g, "")}`],
@@ -366,48 +353,44 @@ export default function Home() {
             ]
               .filter(([, value]) => Boolean(value))
               .map(([label, value, href]) => (
-                <a
-                  key={label}
-                  href={href as string}
-                  className="group flex items-baseline justify-between gap-6 bg-page py-5 transition-colors hover:bg-surface"
-                >
-                  <Label>{label}</Label>
-                  <span className="text-right text-ink-soft transition-colors group-hover:text-accent-soft">
-                    {value}
-                  </span>
-                </a>
+                <li key={label}>
+                  <a
+                    href={href as string}
+                    className="flex items-baseline justify-between gap-6 px-6 py-4 transition-colors hover:bg-fill"
+                  >
+                    <span className="text-label-2">{label}</span>
+                    <span className="text-right text-accent">{value}</span>
+                  </a>
+                </li>
               ))}
-          </div>
+          </ul>
 
-          <div className="mt-10 grid gap-6 sm:grid-cols-2">
+          <div className="mt-8 grid gap-6 sm:grid-cols-2">
             <div>
-              <Label>Preferred locations</Label>
-              <p className="mt-3 leading-relaxed text-ink-soft">
-                {profile.openToWork.locations.join(" · ")}
-              </p>
+              <h3 className="t-headline">Preferred locations</h3>
+              <p className="mt-2 text-label-2">{profile.openToWork.locations.join(" · ")}</p>
             </div>
             <div>
-              <Label>Arrangement</Label>
-              <p className="mt-3 leading-relaxed text-ink-soft">
-                {profile.openToWork.arrangements.join(" · ")} ·{" "}
-                {profile.openToWork.employmentType}
+              <h3 className="t-headline">Arrangement</h3>
+              <p className="mt-2 text-label-2">
+                {profile.openToWork.arrangements.join(" · ")} · {profile.openToWork.employmentType}
               </p>
             </div>
           </div>
         </Section>
       </main>
 
-      <footer className="border-t border-rule">
-        <div className="mx-auto flex max-w-6xl flex-wrap items-center justify-between gap-3 px-6 py-8">
-          <Label>
+      <footer className="border-t border-separator">
+        <div className="mx-auto flex max-w-5xl flex-wrap items-center justify-between gap-3 px-6 py-8">
+          <p className="t-caption">
             © {new Date().getFullYear()} {profile.name}
-          </Label>
-          <Label>
-            machine-readable:{" "}
-            <a href="/api/profile" className="text-accent-soft hover:underline">
+          </p>
+          <p className="t-caption">
+            Machine-readable:{" "}
+            <a href="/api/profile" className="text-accent hover:underline">
               /api/profile
             </a>
-          </Label>
+          </p>
         </div>
       </footer>
     </>

@@ -32,34 +32,39 @@ placeholder is never served as though it were true.
 npm run profile:todo   # lists every field still unfilled
 ```
 
-## Design
+## Design — Apple HIG
 
-The palette is sampled from the portrait rather than chosen. `--page` is
-`#d9d8d6` — the median of the photograph's own border pixels, measured, not
-estimated. The splatter black becomes `--ink`; the shirt's mid-greys become
-`--ink-soft` and `--muted`.
+The UI follows Apple's Human Interface Guidelines rather than a bespoke style:
 
-Because the page and the photograph share exactly one ground colour, the image
-needs no frame and no scrim: its four edges are blended to `--page` **in the
-asset itself**, so there is no boundary to see. Two consequences worth knowing:
+- **Clarity.** One neutral palette, a strict type scale (`.t-display` → `.t-caption`
+  in `globals.css`), and generous negative space. Large text takes tighter
+  tracking and small text looser, the way SF Pro is designed to be set.
+- **Deference.** The UI recedes so the content leads: hairline separators, a
+  translucent nav using a blurred material, and a single accent colour
+  (systemBlue) reserved for action.
+- **Depth.** Layering by elevation and blur, never by decoration — grouped
+  section bands, elevated cards at an 18px radius, pill controls at 980px.
 
-- Nothing in the hero may tint the page, or the page around the photo shifts
-  while the photo does not, and the image reads as a floating block. That is
-  why the hero carries no background tint, and why the paper grain sits
-  *above* the content — so photograph and page take the same texture.
-- The blend bakes `--page` into the JPEG. Change the page colour and the
-  portrait has to be regenerated to match.
+Colours are Apple's own semantic values (`#1d1d1f`, `#f5f5f7`, `#0071e3` and the
+dark-mode counterparts), chosen so the black-and-white portrait is the only
+thing on the page with real contrast.
 
-The palette is deliberately monochrome, so emphasis comes from weight and
-scale, not hue. Type pairs a heavy grotesque with an italic display serif;
-section headings pin to the viewport with `position: sticky` while their
-content scrolls, which needs no scroll library.
+**Appearance** follows the system by default; the control in the nav sets an
+explicit override, stored in `localStorage` and applied before first paint by a
+small script in the document head, so a dark-mode visitor never sees a light
+flash.
 
-To swap the photograph: replace `public/portrait.jpg` (and `public/avatar.jpg`
-for the square crop), blend its edges to `--page`, and re-check the palette in
-`app/globals.css` against the new image. Locally, run `rm -rf
-.next/cache/images` after replacing it — Next otherwise keeps serving a cached
-optimized variant, and you will be looking at the old picture.
+**Typography** prefers SF Pro where it exists (Apple platforms) and falls back
+to Inter everywhere else, so the page looks the same on Windows and Android.
+
+**The portrait** is a cut-out: the subject and the ink splatter were keyed off
+the original poster's light ground by combining a person mask with a luminance
+key, so the strokes survive where a person mask alone would have dropped them.
+It sits at up to 920px wide — deliberately the largest element on the page.
+
+To swap it: replace `public/portrait-cutout.webp` (transparent PNG/WebP), and
+locally run `rm -rf .next/cache/images` afterwards, or Next keeps serving a
+cached optimized variant of the old picture.
 
 ## Run it
 
@@ -93,18 +98,19 @@ The endpoint is public, so it caps question length and rate-limits per IP.
 That limiter is process-local and best-effort — put a real gateway limit in
 front of it if the site gets traffic.
 
-## The 3D hero
+## The 3D layer
 
-A graph of nodes with packets of ink travelling the edges — a data pipeline,
-which is the subject of the portfolio rather than a decorative spinning shape.
-It is built from three primitives (points, lines, points) instead of instanced
-meshes, so it stays cheap on a phone, and sits behind the hero under a veil
-that keeps type legible.
+A restrained ambient field sits behind the hero: five very large, very soft
+forms drifting slowly at low opacity, built from sprites alone — no lights, no
+shadows, no post-processing — so it stays smooth on a phone. HIG deference
+applies here too: it reads as atmosphere, never as decoration competing with
+the portrait. The portrait itself picks up a few pixels of pointer parallax,
+which is the only other motion on the page.
 
-It backs off where it should: no WebGL, `prefers-reduced-motion`, or a small
-screen each degrade it, and a render error falls through to a gradient rather
-than an empty box. The hero text is real DOM, never 3D text, so it stays
-selectable and readable by screen readers and scrapers.
+It backs off where it should: no WebGL, `prefers-reduced-motion`, or a coarse
+pointer each degrade it to a static CSS wash, and a render error falls through
+rather than leaving an empty box. Every fact is real DOM — nothing meaningful
+lives inside the canvas.
 
 ## Deploy
 

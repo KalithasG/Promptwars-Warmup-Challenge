@@ -58,7 +58,7 @@ export default function AskMe() {
   }
 
   return (
-    <div className="border border-rule bg-surface/50 p-6 md:p-8">
+    <div className="card p-6 md:p-8">
       <form
         onSubmit={(e) => {
           e.preventDefault();
@@ -75,12 +75,12 @@ export default function AskMe() {
           onChange={(e) => setQuestion(e.target.value)}
           maxLength={500}
           placeholder="Ask anything — experience, stack, availability…"
-          className="flex-1 border border-rule bg-page px-4 py-3 text-ink placeholder:text-muted"
+          className="flex-1 rounded-xl border border-separator bg-bg px-4 py-3 text-label outline-none placeholder:text-label-3"
         />
         <button
           type="submit"
           disabled={loading || !question.trim()}
-          className="bg-ink px-6 py-3 font-medium text-page transition-colors hover:bg-ink-soft disabled:opacity-40 disabled:hover:bg-ink"
+          className="btn btn-filled disabled:opacity-40"
         >
           {loading ? "Thinking…" : "Ask"}
         </button>
@@ -95,7 +95,7 @@ export default function AskMe() {
               setQuestion(s);
               void ask(s);
             }}
-            className="border border-rule px-3 py-1.5 font-mono text-xs tracking-wide text-muted transition-colors hover:border-accent/60 hover:text-ink"
+            className="rounded-full bg-fill px-3 py-1.5 text-[0.875rem] text-label-2 transition-colors hover:text-label"
           >
             {s}
           </button>
@@ -104,14 +104,14 @@ export default function AskMe() {
 
       <div aria-live="polite" className="mt-5">
         {error && (
-          <p className="border border-accent/40 bg-accent/10 p-4 text-sm text-accent-soft">
+          <p className="rounded-xl border border-separator bg-fill p-4 text-[0.9375rem] text-label-2">
             {error}
           </p>
         )}
         {answer && (
-          <div className="border border-rule bg-page p-5">
+          <div className="rounded-xl bg-fill p-5">
             <p className="whitespace-pre-wrap leading-relaxed">{answer.answer}</p>
-            <p className="mt-4 font-mono text-xs tracking-wider text-muted">
+            <p className="t-caption mt-4">
               {answer.modelUsed} · {answer.latencyMs}ms
               {answer.fellBack && " · fell back"}
             </p>

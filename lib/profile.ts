@@ -50,6 +50,13 @@ export interface Project {
   featured: boolean;
 }
 
+export interface Award {
+  name: string;
+  issuer: string;
+  date?: string;
+  citation?: string;
+}
+
 export interface Signal {
   value: string;
   label: string;
@@ -66,6 +73,7 @@ export interface Profile {
   linkedinHeadline: string;
   location: string;
   photo: string;
+  photoAbout: string;
   avatar: string;
   yearsExperience: string;
   openToWork: {
@@ -92,6 +100,7 @@ export interface Profile {
   experience: Experience[];
   education: Education[];
   certifications: Certification[];
+  awards: Award[];
   projects: Project[];
   interests: string[];
 }
@@ -153,6 +162,7 @@ export function publicProfile(): Record<string, unknown> {
     experience: p.experience.filter((e) => !isTodo(e.company) && !isTodo(e.role)),
     education: p.education.filter((e) => !isTodo(e.institution)),
     certifications: p.certifications,
+    awards: p.awards,
     projects: p.projects,
     interests: p.interests,
   }) as Record<string, unknown>;

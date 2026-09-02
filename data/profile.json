@@ -12,7 +12,7 @@
   "tagline": "Bridging Mainframe → Lakehouse",
   "linkedinHeadline": "Data Engineer | Core Banking & Legacy Modernization | COBOL • Oracle • SQL • OLTP→OLAP | 27 Banks | Databricks Certified (PySpark, Delta Lake) | Bridging Mainframe → Lakehouse",
   "location": "Chennai, Tamil Nadu, India",
-  "photo": "/portrait.jpg",
+  "photo": "/portrait-cutout.webp",
   "yearsExperience": "4+",
   "openToWork": {
     "active": true,
@@ -92,20 +92,21 @@
     {
       "group": "Data Engineering",
       "items": [
-        "ETL/ELT",
+        "ETL / ELT",
         "Data Warehousing",
         "Data Modeling",
         "OLTP→OLAP",
         "Batch Processing",
         "Data Quality",
-        "Data Governance"
+        "Data Governance",
+        "CI/CD"
       ]
     },
     {
       "group": "Languages & Query",
       "items": [
         "SQL",
-        "Oracle/PLSQL",
+        "Oracle / PL-SQL",
         "Python",
         "PySpark",
         "COBOL (Micro Focus)"
@@ -115,13 +116,13 @@
       "group": "Platforms & Tools",
       "items": [
         "Databricks",
+        "Apache Spark",
         "Delta Lake",
         "Unity Catalog",
         "dbt",
         "Oracle SQL Developer",
         "FastAPI",
-        "Docker",
-        "CI/CD"
+        "Docker"
       ]
     },
     {
@@ -278,5 +279,14 @@
     "Data contracts and quality enforced in CI, not in convention",
     "AI-assisted engineering with executable guardrails"
   ],
-  "avatar": "/avatar.jpg"
+  "avatar": "/avatar.jpg",
+  "photoAbout": "/about.jpg",
+  "awards": [
+    {
+      "name": "Star of the Month",
+      "issuer": "Tata Consultancy Services",
+      "date": "Apr 2026",
+      "citation": "Awarded for successfully posting year-end charges for all TN NABARD banks with zero errors, completed within a short turnaround time."
+    }
+  ]
 }

@@ -1,42 +1,97 @@
 @import "tailwindcss";
 
 /*
- * The palette is sampled from the portrait itself: its ground (#d8d8d8 with a
- * warm cast), the splatter black, and the mid-greys of the shirt. Because the
- * page and the photograph share exactly one ground colour, the image sits in
- * the layout rather than on top of it: its own edges are blended to --page in
- * the asset itself, so there is no boundary to see.
+ * Apple Human Interface Guidelines, applied to the web.
+ *
+ * Clarity   — one neutral palette, a strict type scale, generous negative space.
+ * Deference — the UI recedes: hairline separators, translucent materials, and
+ *             a single accent used only for action.
+ * Depth     — layering by elevation and blur rather than by colour.
+ *
+ * Colours are Apple's own system values (apple.com / HIG semantic colours), so
+ * the black-and-white portrait sits on a ground that never competes with it.
  */
 :root {
-  --page: #d9d8d6;        /* sampled from the photograph's border, exactly */
-  --surface: #e2e1df;     /* raised panel */
-  --sunken: #cdccca;
-  --ink: #0b0b0b;         /* splatter black */
-  --ink-soft: #3d3d3b;    /* mid-tone from the shirt */
-  --muted: #6a6a67;
-  --rule: #c0bfbc;
-  --accent: #0b0b0b;      /* monochrome by design: emphasis is weight, not hue */
-  --accent-soft: #17171a;
+  --bg: #ffffff;
+  --bg-grouped: #f5f5f7;
+  --bg-elevated: #ffffff;
+  --label: #1d1d1f;
+  --label-2: #6e6e73;
+  --label-3: #86868b;
+  --separator: rgba(0, 0, 0, 0.12);
+  --fill: rgba(0, 0, 0, 0.05);
+  --accent: #0071e3;
+  --accent-pressed: #0077ed;
+  --on-accent: #ffffff;
+  --material: rgba(255, 255, 255, 0.72);
+}
+
+/* System preference is the default; an explicit choice overrides it. */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #000000;
+    --bg-grouped: #101012;
+    --bg-elevated: #1d1d1f;
+    --label: #f5f5f7;
+    --label-2: #a1a1a6;
+    --label-3: #86868b;
+    --separator: rgba(255, 255, 255, 0.14);
+    --fill: rgba(255, 255, 255, 0.06);
+    --accent: #2997ff;
+    --accent-pressed: #47a6ff;
+    --on-accent: #000000;
+    --material: rgba(22, 22, 24, 0.72);
+  }
+}
+
+:root[data-theme="dark"] {
+  --bg: #000000;
+  --bg-grouped: #101012;
+  --bg-elevated: #1d1d1f;
+  --label: #f5f5f7;
+  --label-2: #a1a1a6;
+  --label-3: #86868b;
+  --separator: rgba(255, 255, 255, 0.14);
+  --fill: rgba(255, 255, 255, 0.06);
+  --accent: #2997ff;
+  --accent-pressed: #47a6ff;
+  --on-accent: #000000;
+  --material: rgba(22, 22, 24, 0.72);
 }
 
 @theme inline {
-  --color-page: var(--page);
-  --color-surface: var(--surface);
-  --color-sunken: var(--sunken);
-  --color-ink: var(--ink);
-  --color-ink-soft: var(--ink-soft);
-  --color-muted: var(--muted);
-  --color-rule: var(--rule);
+  --color-bg: var(--bg);
+  --color-grouped: var(--bg-grouped);
+  --color-elevated: var(--bg-elevated);
+  --color-label: var(--label);
+  --color-label-2: var(--label-2);
+  --color-label-3: var(--label-3);
+  --color-separator: var(--separator);
+  --color-fill: var(--fill);
   --color-accent: var(--accent);
-  --color-accent-soft: var(--accent-soft);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-  --font-display: var(--font-display);
+  --color-on-accent: var(--on-accent);
+  --font-sans: var(--font-inter);
 }
 
 html {
+  background: var(--bg);
   scroll-behavior: smooth;
-  background: var(--page);
+  /* HIG: content should never hide under a sticky bar when jumped to. */
+  scroll-padding-top: 5rem;
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  background: var(--bg);
+  color: var(--label);
+  -webkit-font-smoothing: antialiased;
+  /* SF Pro where it exists, Inter as the closest match everywhere else. */
+  font-family:
+    -apple-system, BlinkMacSystemFont, "SF Pro Text", "SF Pro Display",
+    var(--font-inter), "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  font-size: 17px;
+  line-height: 1.47;
+  letter-spacing: -0.012em;
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -52,60 +107,111 @@ html {
   }
 }
 
-body {
-  color: var(--ink);
-  -webkit-font-smoothing: antialiased;
-}
-
+/* HIG: focus must be obvious and never removed. */
 :focus-visible {
-  outline: 2px solid var(--ink);
+  outline: 3px solid var(--accent);
   outline-offset: 3px;
+  border-radius: 6px;
 }
 
-/* Small mono label: "01 / 07", section names, the top meta bar. */
-.label {
-  font-family: var(--font-mono), ui-monospace, monospace;
-  font-size: 0.68rem;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
-  color: var(--muted);
+/* --- Type scale ------------------------------------------------------- */
+/* Large text gets tighter tracking, small text looser — as SF Pro does. */
+.t-display {
+  font-size: clamp(2.75rem, 7vw, 5.5rem);
+  line-height: 1.05;
+  font-weight: 600;
+  letter-spacing: -0.03em;
 }
 
-/* The display face, used only for the one italic word per heading. */
-.display {
-  font-family: var(--font-display), Georgia, "Times New Roman", serif;
+.t-title {
+  font-size: clamp(1.9rem, 3.4vw, 3rem);
+  line-height: 1.1;
+  font-weight: 600;
+  letter-spacing: -0.022em;
+}
+
+.t-headline {
+  font-size: 1.3rem;
+  line-height: 1.3;
+  font-weight: 600;
+  letter-spacing: -0.018em;
+}
+
+.t-body-lg {
+  font-size: clamp(1.1rem, 1.6vw, 1.36rem);
+  line-height: 1.42;
   font-weight: 400;
   letter-spacing: -0.01em;
-  line-height: 0.92;
 }
 
-/* Heavy grotesque half of the pairing. */
-.grotesk {
-  font-weight: 700;
-  letter-spacing: -0.045em;
-  line-height: 0.88;
+.t-caption {
+  font-size: 0.8125rem;
+  line-height: 1.35;
+  letter-spacing: 0;
+  color: var(--label-3);
 }
 
-/* Paper grain, matching the photograph's own texture. It sits ABOVE the
-   content so the photograph and the page around it receive the same grain —
-   otherwise the image reads as a lighter block floating on the page. */
-.grain::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  z-index: 20;
-  pointer-events: none;
-  opacity: 0.05;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3'/%3E%3C/filter%3E%3Crect width='140' height='140' filter='url(%23n)'/%3E%3C/svg%3E");
+/* An eyebrow above a section title. */
+.t-eyebrow {
+  font-size: 0.8125rem;
+  font-weight: 600;
+  letter-spacing: 0.004em;
+  color: var(--accent);
+}
+
+/* --- Materials and controls ------------------------------------------- */
+.material {
+  background: var(--material);
+  backdrop-filter: saturate(180%) blur(20px);
+  -webkit-backdrop-filter: saturate(180%) blur(20px);
+}
+
+/* Apple's pill button: 980px radius, generous horizontal padding. */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  border-radius: 980px;
+  padding: 0.72rem 1.4rem;
+  font-size: 1rem;
+  font-weight: 400;
+  line-height: 1.2;
+  transition: background-color 200ms cubic-bezier(0.25, 0.1, 0.25, 1),
+    color 200ms cubic-bezier(0.25, 0.1, 0.25, 1),
+    opacity 200ms cubic-bezier(0.25, 0.1, 0.25, 1);
+}
+
+.btn-filled {
+  background: var(--accent);
+  color: var(--on-accent);
+}
+
+.btn-filled:hover {
+  background: var(--accent-pressed);
+}
+
+.btn-tinted {
+  background: var(--fill);
+  color: var(--accent);
+}
+
+.btn-tinted:hover {
+  background: color-mix(in oklab, var(--accent) 12%, transparent);
+}
+
+.card {
+  background: var(--bg-elevated);
+  border-radius: 18px;
+  border: 1px solid var(--separator);
 }
 
 /* An unfilled profile field. Loud on purpose. */
 .placeholder {
-  border: 1px dashed color-mix(in oklab, var(--ink) 45%, transparent);
-  background: color-mix(in oklab, var(--ink) 7%, transparent);
-  color: var(--ink);
-  border-radius: 3px;
+  border: 1px dashed color-mix(in oklab, var(--accent) 60%, transparent);
+  background: color-mix(in oklab, var(--accent) 10%, transparent);
+  color: var(--accent);
+  border-radius: 6px;
   padding: 0 0.4em;
   font-size: 0.9em;
-  font-family: var(--font-mono), ui-monospace, monospace;
 }

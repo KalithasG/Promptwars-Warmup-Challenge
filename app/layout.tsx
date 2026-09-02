@@ -1,38 +1,27 @@
-import type { Metadata } from "next";
-import { Geist, Geist_Mono, Instrument_Serif } from "next/font/google";
+import type { Metadata, Viewport } from "next";
+import { Inter } from "next/font/google";
 
 import { profile, real } from "@/lib/profile";
 import "./globals.css";
 
-const geistSans = Geist({ variable: "--font-geist-sans", subsets: ["latin"] });
-const geistMono = Geist_Mono({ variable: "--font-geist-mono", subsets: ["latin"] });
-const display = Instrument_Serif({
-  variable: "--font-display",
-  subsets: ["latin"],
-  weight: "400",
-  style: ["normal", "italic"],
-});
+// SF Pro is used where it exists (Apple platforms); Inter is the closest
+// match everywhere else, so the type looks the same on Windows and Android.
+const inter = Inter({ variable: "--font-inter", subsets: ["latin"], display: "swap" });
 
 const name = real(profile.name) ?? "Portfolio";
 const headline = real(profile.headline) ?? "";
 const summary = real(profile.summary) ?? `${headline} — portfolio, work and contact details.`;
 
-// Set NEXT_PUBLIC_SITE_URL in the host's env once deployed; the fallback only
-// keeps local builds from emitting relative OG URLs, which crawlers reject.
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000";
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
-  title: {
-    default: `${name} — ${headline}`,
-    template: `%s — ${name}`,
-  },
+  title: { default: `${name} — ${headline}`, template: `%s — ${name}` },
   description: summary,
   applicationName: name,
   authors: [{ name, url: profile.contact.linkedin }],
   creator: name,
   keywords: [headline, profile.specialism, ...profile.coreAreas],
-  // The link unfurls into a card in LinkedIn, WhatsApp and Slack.
   openGraph: {
     type: "profile",
     url: siteUrl,
@@ -50,16 +39,33 @@ export const metadata: Metadata = {
   alternates: { canonical: siteUrl },
 };
 
+// Tells the browser both appearances are supported, so form controls and
+// scrollbars match the theme rather than staying light.
+export const viewport: Viewport = {
+  themeColor: [
+    { media: "(prefers-color-scheme: light)", color: "#ffffff" },
+    { media: "(prefers-color-scheme: dark)", color: "#000000" },
+  ],
+};
+
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
-    <html
-      lang="en"
-      className={`${geistSans.variable} ${geistMono.variable} ${display.variable} h-full`}
-    >
-      <body className="min-h-full flex flex-col font-sans">
+    <html lang="en" suppressHydrationWarning className={`${inter.variable} h-full`}>
+      <head>
+        {/* Applies a stored appearance before first paint. No attribute means
+            "follow the system", which the stylesheet handles on its own. */}
+        <script
+          dangerouslySetInnerHTML={{
+            __html:
+              "(function(){try{var t=localStorage.getItem('portfolio-theme');" +
+              "if(t==='dark'||t==='light'){document.documentElement.dataset.theme=t;}}catch(e){}})();",
+          }}
+        />
+      </head>
+      <body className="min-h-full">
         <a
           href="#main"
-          className="sr-only focus:not-sr-only focus:absolute focus:top-3 focus:left-3 focus:z-50 focus:bg-ink focus:px-4 focus:py-2 focus:text-page"
+          className="sr-only focus:not-sr-only focus:absolute focus:top-3 focus:left-3 focus:z-[60] focus:rounded-full focus:bg-accent focus:px-4 focus:py-2 focus:text-on-accent"
         >
           Skip to content
         </a>
