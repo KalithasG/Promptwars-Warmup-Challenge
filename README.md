@@ -107,6 +107,13 @@ applies here too: it reads as atmosphere, never as decoration competing with
 the portrait. The portrait itself picks up a few pixels of pointer parallax,
 which is the only other motion on the page.
 
+On load, the hero arrives in a short staggered sequence: the copy rises and
+fades in from the left at 80ms intervals while the portrait follows on its own
+slightly longer curve. The animation carries `both` fill so elements stay put
+once they land, and the reduced-motion block collapses the duration to nothing
+— so a visitor who asked for less motion sees the finished layout immediately
+rather than a hidden page.
+
 It backs off where it should: no WebGL, `prefers-reduced-motion`, or a coarse
 pointer each degrade it to a static CSS wash, and a render error falls through
 rather than leaving an empty box. Every fact is real DOM — nothing meaningful

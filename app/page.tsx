@@ -86,50 +86,65 @@ function Hero() {
     <section id="top" className="relative overflow-hidden">
       <Backdrop />
 
-      <div className="relative z-10 mx-auto max-w-5xl px-6 pt-16 text-center md:pt-24">
-        {profile.openToWork?.active && (
-          <p className="t-eyebrow">{profile.openToWork.blurb}</p>
-        )}
-        <h1 className="t-display mt-3">
-          <Field value={profile.name} />
-        </h1>
-        <p className="t-title mt-3 text-label-2">
-          <Field value={profile.headline} />
-        </p>
-        <p className="t-body-lg mx-auto mt-6 max-w-2xl text-label-2">
-          <Field value={profile.specialism} />. <Field value={profile.tagline} />.
-        </p>
-
-        <div className="mt-8 flex flex-wrap items-center justify-center gap-3">
-          <a href="#ask" className="btn btn-filled">
-            Ask about me
-          </a>
-          <a href="#contact" className="btn btn-tinted">
-            Get in touch
-          </a>
-          {profile.resume?.url && (
-            <a href={profile.resume.url} download className="btn btn-tinted">
-              Résumé
-            </a>
+      <div className="relative z-10 mx-auto grid max-w-7xl items-center gap-10 px-6 pt-14 pb-8 md:grid-cols-[minmax(0,1fr)_minmax(0,1.12fr)] md:gap-12 md:pt-20 md:pb-14">
+        <div>
+          {profile.openToWork?.active && (
+            <p className="t-eyebrow reveal" style={{ animationDelay: "80ms" }}>
+              {profile.openToWork.blurb}
+            </p>
           )}
+          <h1 className="t-display reveal mt-3" style={{ animationDelay: "160ms" }}>
+            <Field value={profile.name} />
+          </h1>
+          <p
+            className="t-title reveal mt-3 text-label-2"
+            style={{ animationDelay: "240ms" }}
+          >
+            <Field value={profile.headline} />
+          </p>
+          <p
+            className="t-body-lg reveal mt-6 max-w-xl text-label-2"
+            style={{ animationDelay: "320ms" }}
+          >
+            <Field value={profile.specialism} />. <Field value={profile.tagline} />.
+          </p>
+
+          <div
+            className="reveal mt-8 flex flex-wrap items-center gap-3"
+            style={{ animationDelay: "400ms" }}
+          >
+            <a href="#ask" className="btn btn-filled">
+              Ask about me
+            </a>
+            <a href="#contact" className="btn btn-tinted">
+              Get in touch
+            </a>
+            {profile.resume?.url && (
+              <a href={profile.resume.url} download className="btn btn-tinted">
+                Résumé
+              </a>
+            )}
+          </div>
+
+          <p className="t-caption reveal mt-6" style={{ animationDelay: "480ms" }}>
+            {profile.location} · {profile.pronouns} · {profile.yearsExperience} years
+          </p>
         </div>
 
-        <p className="t-caption mt-6">
-          {profile.location} · {profile.pronouns} · {profile.yearsExperience} years
-        </p>
-      </div>
-
-      {/* The portrait, deliberately the largest thing here. */}
-      <div className="relative z-10 mx-auto mt-8 flex max-w-6xl justify-center px-2 md:mt-6 md:px-4">
-        <Portrait
-          src={profile.photo}
-          alt={`${profile.name}, ${profile.headline}`}
-          width={1265}
-          height={1500}
-          priority
-          sizes="(max-width: 768px) 100vw, 920px"
-          className="h-auto w-full max-w-[920px] object-contain"
-        />
+        {/* The portrait leads the right column and stays the largest element
+            on the page. The reveal sits on this wrapper so it cannot fight the
+            pointer parallax, which sets a transform of its own inside. */}
+        <div className="reveal-media" style={{ animationDelay: "200ms" }}>
+          <Portrait
+            src={profile.photo}
+            alt={`${profile.name}, ${profile.headline}`}
+            width={1265}
+            height={1500}
+            priority
+            sizes="(max-width: 768px) 100vw, 660px"
+            className="mx-auto h-auto w-full max-w-[660px] object-contain md:mr-0"
+          />
+        </div>
       </div>
     </section>
   );

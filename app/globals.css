@@ -159,6 +159,38 @@ body {
   color: var(--accent);
 }
 
+/* --- Entrance motion --------------------------------------------------- */
+@keyframes hig-rise {
+  from {
+    opacity: 0;
+    transform: translateY(22px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes hig-rise-media {
+  from {
+    opacity: 0;
+    transform: translateY(28px) scale(0.975);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* Elements carry their own animation-delay inline to stagger the sequence. */
+.reveal {
+  animation: hig-rise 800ms cubic-bezier(0.25, 0.1, 0.25, 1) both;
+}
+
+.reveal-media {
+  animation: hig-rise-media 1000ms cubic-bezier(0.25, 0.1, 0.25, 1) both;
+}
+
 /* --- Materials and controls ------------------------------------------- */
 .material {
   background: var(--material);
