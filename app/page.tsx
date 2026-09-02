@@ -72,11 +72,14 @@ function TopBar() {
 
 function Hero() {
   const resumeUrl = profile.resume?.url;
+  // The name carries the hero, split across the two faces of the pairing.
+  const [firstName, ...restOfName] = profile.name.split(" ");
+  const surname = restOfName.join(" ");
 
   return (
     <header id="top" className="grain relative overflow-hidden pt-14">
       <Hero3D />
-      <div className="relative z-10 mx-auto grid w-full max-w-6xl items-end gap-10 px-6 pb-16 pt-16 md:grid-cols-[1.15fr_0.85fr] md:pb-24 md:pt-24">
+      <div className="relative z-10 mx-auto grid w-full max-w-6xl items-center gap-10 px-6 pb-16 pt-14 md:grid-cols-[1fr_1.05fr] md:gap-14 md:pb-24 md:pt-20">
         <div>
           <div>
             <Label>
@@ -85,20 +88,24 @@ function Hero() {
           </div>
 
           {profile.openToWork?.active && (
-            <p className="mt-6 inline-flex items-center gap-2 border border-accent/40 px-3 py-1.5 font-mono text-xs tracking-wider text-accent-soft">
+            <p className="mt-6 inline-flex items-center gap-2 border border-accent/40 px-3 py-1.5 font-mono text-xs tracking-wider text-ink">
               <span className="h-1.5 w-1.5 rounded-full bg-accent" />
               {profile.openToWork.blurb}
             </p>
           )}
 
           <h1 className="mt-6">
-            <span className="grotesk block text-[clamp(3.2rem,11vw,7.5rem)]">Data</span>
-            <span className="display block text-[clamp(3.4rem,12vw,8.5rem)] italic text-ink-soft">
-              engineer
+            <span className="grotesk block text-[clamp(2.9rem,8.6vw,6.1rem)]">{firstName}</span>
+            <span className="display block text-[clamp(3rem,9.4vw,7rem)] italic text-ink-soft">
+              {surname}
             </span>
           </h1>
 
-          <p className="mt-8 max-w-xl text-lg leading-relaxed text-ink-soft">
+          <p className="label mt-7 !text-ink" style={{ letterSpacing: "0.3em" }}>
+            {profile.headline}
+          </p>
+
+          <p className="mt-5 max-w-xl text-lg leading-relaxed text-ink-soft">
             <Field value={profile.specialism} />.{" "}
             <span className="font-medium text-ink">
               <Field value={profile.tagline} />
@@ -110,7 +117,7 @@ function Hero() {
             modernization and data engineering in a regulated BFSI environment.
           </p>
 
-          <div className="mt-10 flex flex-wrap gap-3">
+          <div className="mt-9 flex flex-wrap gap-3">
             <a
               href="#ask"
               className="bg-ink px-6 py-3 font-medium text-page transition-colors hover:bg-ink-soft"
@@ -133,30 +140,26 @@ function Hero() {
               Get in touch
             </a>
           </div>
-
-          <p className="mt-8 font-mono text-xs tracking-wider text-muted">
-            {profile.location} · {profile.pronouns}
-          </p>
         </div>
 
-        {/* Portrait: a bright block against the dark page, faded into the ground
-            at its base so it sits in the layout rather than on top of it. */}
-        <div className="relative mx-auto w-full max-w-sm md:mx-0">
-          {/* The asset's own edges are blended to --page, so the photograph
-              has no boundary: no frame, no scrim, no mask needed here. */}
-          <div className="relative aspect-[3/4] overflow-hidden">
+        {/* The asset's own edges are blended to --page, so the photograph has
+            no boundary: no frame, no scrim, no mask needed here. */}
+        <div className="relative w-full">
+          <div className="relative aspect-[3/4] w-full overflow-hidden">
             <Image
               src={profile.photo}
               alt={`${profile.name}, ${profile.headline}`}
               fill
               priority
-              sizes="(max-width: 768px) 90vw, 380px"
+              sizes="(max-width: 768px) 94vw, 580px"
               className="object-cover"
             />
           </div>
-          <div className="mt-3 flex items-center justify-between">
-            <Label>{profile.name}</Label>
+          <div className="mt-2 flex flex-wrap items-baseline justify-between gap-x-6 gap-y-1">
             <Label>{profile.experience[0]?.company}</Label>
+            <Label>
+              {profile.location} · {profile.pronouns}
+            </Label>
           </div>
         </div>
       </div>
