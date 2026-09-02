@@ -1,0 +1,282 @@
+{
+  "meta": {
+    "status": "LIVE",
+    "note": "Single source of truth: every section, /api/profile, the OG card, the JSON-LD, and the facts the AI assistant may state. Sourced from LinkedIn.",
+    "lastUpdated": "2026-09-02"
+  },
+  "name": "Kalithas Govindaraj",
+  "shortName": "Kalithas G",
+  "pronouns": "He/Him",
+  "headline": "Data Engineer",
+  "specialism": "Core Banking & Legacy Modernization",
+  "tagline": "Bridging Mainframe → Lakehouse",
+  "linkedinHeadline": "Data Engineer | Core Banking & Legacy Modernization | COBOL • Oracle • SQL • OLTP→OLAP | 27 Banks | Databricks Certified (PySpark, Delta Lake) | Bridging Mainframe → Lakehouse",
+  "location": "Chennai, Tamil Nadu, India",
+  "photo": "/portrait.jpg",
+  "yearsExperience": "4+",
+  "openToWork": {
+    "active": true,
+    "role": "Data Engineer",
+    "blurb": "Open to data engineering roles",
+    "titles": [
+      "Data Engineer",
+      "Senior Data Engineer",
+      "ETL Developer",
+      "Big Data Developer"
+    ],
+    "locations": [
+      "Chennai, Tamil Nadu",
+      "Greater Bengaluru Area",
+      "Hyderabad, Telangana"
+    ],
+    "arrangements": [
+      "On-site",
+      "Hybrid",
+      "Remote"
+    ],
+    "employmentType": "Full-time"
+  },
+  "summary": "I'm a Data Engineer with 4+ years of experience working on core banking systems, legacy reporting modernization, and data engineering in a regulated BFSI environment. At Tata Consultancy Services I work on the Reports module of a TCS BaNCS core banking platform, supporting 27 cooperative banks across Tamil Nadu and Puducherry — production work spanning Micro Focus COBOL, Oracle/PLSQL, complex SQL, batch automation, ETL/ELT, OLTP→OLAP extraction, SFTP delivery, reconciliation and regulatory reporting.",
+  "summaryParagraphs": [
+    "I'm a Data Engineer with 4+ years of experience working on core banking systems, legacy reporting modernization, and data engineering in a regulated BFSI environment.",
+    "At Tata Consultancy Services, I work on the Reports module of a TCS BaNCS core banking platform, supporting 27 cooperative banks across Tamil Nadu and Puducherry. My production work spans Micro Focus COBOL, Oracle/PLSQL, complex SQL, batch automation, ETL/ELT, OLTP→OLAP data extraction, SFTP-based data delivery, reconciliation, and regulatory reporting.",
+    "One of my key contributions was reducing year-end EOD report processing from ~15 hours to 3.5 hours by automating manual report execution and tuning Oracle queries based on execution plans. I have also developed 15+ Oracle SQL extract reports and automated their generation as part of the EOD reporting workflow.",
+    "I'm particularly interested in the intersection of legacy systems and modern data engineering — taking reliable, business-critical systems and progressively enabling modern analytics and data platforms. I have collaborated with a client-side data engineer on Databricks KPI models and hold the Databricks Certified Data Engineer Associate certification.",
+    "Beyond my production work, I build hands-on projects using Python, PySpark, pandas, data modelling, SCD logic, FastAPI, Docker, and AI-assisted development. I also built an AI-assisted Mainframe Modernizer focused on analyzing and transforming legacy COBOL code.",
+    "I'm currently looking to move into a Data Engineer / Big Data Engineer / Cloud Data Engineer role where I can combine my production experience in data-intensive banking systems with modern distributed data engineering."
+  ],
+  "signals": [
+    {
+      "value": "27",
+      "label": "Cooperative banks supported"
+    },
+    {
+      "value": "15h → 3.5h",
+      "label": "Year-end EOD processing"
+    },
+    {
+      "value": "500GB+",
+      "label": "Oracle production estate"
+    },
+    {
+      "value": "1M+",
+      "label": "Customer records migrated"
+    }
+  ],
+  "contact": {
+    "email": "kalithas878@gmail.com",
+    "phone": "+91 73735 17004",
+    "linkedin": "https://www.linkedin.com/in/kalithas-govindaraj",
+    "github": "https://github.com/KalithasG"
+  },
+  "resume": {
+    "url": null,
+    "note": "Drop your PDF at public/resume.pdf and set url to '/resume.pdf'. While this is null the download button stays hidden instead of 404-ing."
+  },
+  "coreAreas": [
+    "SQL",
+    "Oracle/PLSQL",
+    "PySpark",
+    "Python",
+    "ETL/ELT",
+    "Data Modelling",
+    "OLTP→OLAP",
+    "Databricks",
+    "COBOL",
+    "Core Banking",
+    "Data Quality",
+    "Batch Processing",
+    "Legacy Modernization"
+  ],
+  "skills": [
+    {
+      "group": "Data Engineering",
+      "items": [
+        "ETL/ELT",
+        "Data Warehousing",
+        "Data Modeling",
+        "OLTP→OLAP",
+        "Batch Processing",
+        "Data Quality",
+        "Data Governance"
+      ]
+    },
+    {
+      "group": "Languages & Query",
+      "items": [
+        "SQL",
+        "Oracle/PLSQL",
+        "Python",
+        "PySpark",
+        "COBOL (Micro Focus)"
+      ]
+    },
+    {
+      "group": "Platforms & Tools",
+      "items": [
+        "Databricks",
+        "Delta Lake",
+        "Unity Catalog",
+        "dbt",
+        "Oracle SQL Developer",
+        "FastAPI",
+        "Docker",
+        "CI/CD"
+      ]
+    },
+    {
+      "group": "Domain",
+      "items": [
+        "Core Banking (TCS BaNCS)",
+        "Regulatory Reporting",
+        "Reconciliation",
+        "Legacy Modernization",
+        "BFSI Compliance"
+      ]
+    }
+  ],
+  "experience": [
+    {
+      "company": "Tata Consultancy Services",
+      "role": "System Engineer · Project Role: Data Engineer",
+      "start": "May 2022",
+      "end": "Present",
+      "duration": "4 yrs 5 mos",
+      "location": "Chennai, Tamil Nadu, India · On-site",
+      "type": "Full-time",
+      "highlights": [
+        "Own the Reports module of a mission-critical TCS BaNCS core banking platform running on Micro Focus COBOL and 500GB+ Oracle databases, supporting 27 cooperative banks across Tamil Nadu and Puducherry.",
+        "Reduced year-end EOD report processing from ~15 hours to 3.5 hours (~77%) by automating manual report execution and tuning Oracle queries using execution plans, turning the 1 April year-end close into a single-morning operation.",
+        "Developed 15+ Oracle SQL extract reports, automated their generation within the EOD batch cycle, and delivered extracts through SFTP for downstream S3 ingestion and analytics.",
+        "Build Databricks KPI models covering GL-wise P&L, CASA, Basic Savings balances, loan portfolio metrics, EKCC lending, and customer KYC coverage.",
+        "Led migration of 1M+ customer records into a secure Aadhaar Vault through REST API-based microservices integration, with data masking and NPCI/UIDAI compliance controls.",
+        "Delivered and maintained regulatory datasets supporting NABARD, RBI, and Income Tax statutory audits, maintaining versioning, metadata tagging, and audit-trail documentation.",
+        "Mentored 3 junior data engineers on pipeline design, dataset management, and secure data practices while allocating work across concurrent projects.",
+        "Currently designing a Kafka-based real-time streaming architecture with EMR, Glue, and Redshift to replace batch extracts, including cost-optimization analysis under project budget constraints."
+      ]
+    },
+    {
+      "company": "Hindustan Petroleum Corporation Limited",
+      "role": "Graduate Apprentice — Data Validation & Reporting",
+      "start": "Mar 2021",
+      "end": "Feb 2022",
+      "duration": "1 yr",
+      "location": "Nellore, Andhra Pradesh, India · On-site",
+      "type": "Apprenticeship",
+      "highlights": [
+        "Apprenticeship at one of India's largest PSU oil companies, supporting enterprise automation systems across 250+ retail outlets.",
+        "Monitored mandatory daily operational reporting across the regional retail outlet network, including Interlocks and Nano reports, reviewing exceptions and escalating faults for resolution.",
+        "Triaged retail outlet automation failures involving tank probes and pump SMPS, coordinating resolution with field engineers from AGS, Orpak, and Atos and reporting status to the regional manager.",
+        "Conducted safety and pre-commissioning audits at operational and new retail outlet sites across the Nellore region, both independently and alongside the regional manager."
+      ]
+    }
+  ],
+  "education": [
+    {
+      "institution": "University College of Engineering, BIT Campus, Anna University, Tiruchirappalli",
+      "credential": "Bachelor of Engineering, Mechanical Engineering",
+      "start": "Aug 2016",
+      "end": "Sep 2020",
+      "grade": "First Class",
+      "note": "Bachelor of Engineering in Mechanical Engineering from one of Tamil Nadu's premier engineering institutions under Anna University."
+    }
+  ],
+  "certifications": [
+    {
+      "name": "Databricks Certified Data Engineer Associate",
+      "issuer": "Databricks",
+      "issued": "Jul 2026",
+      "expires": "Jul 2028",
+      "credentialId": "187751699"
+    },
+    {
+      "name": "Databricks Fundamentals Accreditation",
+      "issuer": "Databricks",
+      "issued": "Jun 2026"
+    },
+    {
+      "name": "Certificate of Completion: Claude 101",
+      "issuer": "Anthropic",
+      "issued": "Jun 2026",
+      "credentialId": "imkqh9ev5a58"
+    },
+    {
+      "name": "Build with AI Bootcamp — Certificate of Participation",
+      "issuer": "Google for Developers",
+      "issued": "Jun 2026"
+    },
+    {
+      "name": "AWS AI Practitioner Challenge",
+      "issuer": "Udacity",
+      "issued": "Apr 2026"
+    },
+    {
+      "name": "AWS AI & ML Scholars — 2026 Challenge Completion",
+      "issuer": "Udacity",
+      "issued": "Mar 2026"
+    },
+    {
+      "name": "AWS Scholars Program Project Badge: Analyze Data using AI with PartyRock",
+      "issuer": "Udacity",
+      "issued": "Mar 2026"
+    }
+  ],
+  "projects": [
+    {
+      "name": "NYC Taxi Data Engineering & Analytics Platform",
+      "period": "Aug 2026 – Sep 2026",
+      "summary": "A medallion lakehouse on Databricks that turns 1,458,644 raw NYC taxi trips into 20 governed business KPIs — where \"trusted\" is enforced by code rather than asserted.",
+      "detail": [
+        "Three rules, enforced by scripts and CI rather than convention: no invented thresholds (six cutoffs shipped unset; a build needing one fails rather than defaulting), no silent data loss (outliers are flagged and quarantined with a rule ID, never dropped, with total = valid + quarantined as a dbt test), and no drifting definitions (a KPI formula change requires a contract version bump and a 7-field changelog entry, blocked at pre-commit).",
+        "Verified on the real dataset, not a fixture: full 4-task serverless job green, dbt PASS=28 / ERROR=0, reconciliation exact at 1,457,659 + 985 = 1,458,644, Bronze idempotent across repeated ingests, Gold KPI-001 summing to exactly the valid population."
+      ],
+      "stack": [
+        "Databricks (serverless)",
+        "Unity Catalog",
+        "Delta Lake",
+        "dbt",
+        "PySpark",
+        "Databricks Asset Bundles",
+        "GitHub Actions",
+        "pytest",
+        "YAML data contracts"
+      ],
+      "featured": true
+    },
+    {
+      "name": "Mainframe Modernizer — Multiagent COBOL Modernization Platform",
+      "period": "Jan 2026 – May 2026",
+      "summary": "A browser-based platform that converts legacy COBOL programs into modern languages using a multi-agent AI pipeline powered by Google Gemini.",
+      "detail": [
+        "Unlike simple LLM wrappers, it orchestrates 8 specialized agents across 4 pipeline stages — Developer Agent (conversion) → 4 Analysis Agents (DSA, System Design, Performance, Business Logic) → Bug Report Agent (aggregation & prioritization) → Fix Agent (iterative auto-correction). The loop runs up to 3 times before escalating unresolved issues to human review.",
+        "All analysis agents call Gemini with an enforced response schema, guaranteeing type-safe, parseable output every time — no regex hacks, no parsing fragility."
+      ],
+      "stack": [
+        "React 19",
+        "TypeScript 5.8",
+        "Vite 6",
+        "Tailwind CSS 4",
+        "Zustand 5",
+        "Monaco Editor",
+        "Google Gemini API",
+        "Framer Motion",
+        "Material Design 3"
+      ],
+      "featured": true
+    },
+    {
+      "name": "Prospect Assist AI",
+      "period": "2026",
+      "summary": "An AI-powered retail lending intelligence platform built for IDBI Innovate 2026, with explainability panels giving SHAP-style contributions and analyst narrative for every lead.",
+      "detail": [],
+      "stack": [],
+      "featured": false
+    }
+  ],
+  "interests": [
+    "The seam between legacy systems and modern data platforms",
+    "Data contracts and quality enforced in CI, not in convention",
+    "AI-assisted engineering with executable guardrails"
+  ],
+  "avatar": "/avatar.jpg"
+}

@@ -24,3 +24,12 @@ Thumbs.db
 # --- Local agent tooling (not part of the submission) ---
 .agents/
 .gemini/
+
+# --- Next.js ---
+/.next/
+/out/
+/build
+next-env.d.ts
+*.tsbuildinfo
+/coverage
+.vercel
