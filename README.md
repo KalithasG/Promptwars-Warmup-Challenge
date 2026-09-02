@@ -34,11 +34,21 @@ npm run profile:todo   # lists every field still unfilled
 
 ## Design
 
-The palette is sampled from the portrait rather than chosen: its ground
-(`#d8d8d8`, slightly warm), the splatter black, and the mid-greys of the shirt
-become the page, the ink and the secondary text. Because the page and the
-photograph share a ground, the image needs no frame and no scrim — it is
-masked at its lower and right edges and dissolves into the layout.
+The palette is sampled from the portrait rather than chosen. `--page` is
+`#d9d8d6` — the median of the photograph's own border pixels, measured, not
+estimated. The splatter black becomes `--ink`; the shirt's mid-greys become
+`--ink-soft` and `--muted`.
+
+Because the page and the photograph share exactly one ground colour, the image
+needs no frame and no scrim: its four edges are blended to `--page` **in the
+asset itself**, so there is no boundary to see. Two consequences worth knowing:
+
+- Nothing in the hero may tint the page, or the page around the photo shifts
+  while the photo does not, and the image reads as a floating block. That is
+  why the hero carries no background tint, and why the paper grain sits
+  *above* the content — so photograph and page take the same texture.
+- The blend bakes `--page` into the JPEG. Change the page colour and the
+  portrait has to be regenerated to match.
 
 The palette is deliberately monochrome, so emphasis comes from weight and
 scale, not hue. Type pairs a heavy grotesque with an italic display serif;
@@ -46,8 +56,10 @@ section headings pin to the viewport with `position: sticky` while their
 content scrolls, which needs no scroll library.
 
 To swap the photograph: replace `public/portrait.jpg` (and `public/avatar.jpg`
-for the square crop), then re-check the palette in `app/globals.css` against
-the new image.
+for the square crop), blend its edges to `--page`, and re-check the palette in
+`app/globals.css` against the new image. Locally, run `rm -rf
+.next/cache/images` after replacing it — Next otherwise keeps serving a cached
+optimized variant, and you will be looking at the old picture.
 
 ## Run it
 
