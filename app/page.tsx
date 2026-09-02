@@ -142,24 +142,16 @@ function Hero() {
         {/* Portrait: a bright block against the dark page, faded into the ground
             at its base so it sits in the layout rather than on top of it. */}
         <div className="relative mx-auto w-full max-w-sm md:mx-0">
-          {/* No frame, no scrim: the page now shares the photograph's own
-              ground, so the image dissolves into the layout on its own. */}
-          <div
-            className="relative aspect-[3/4] overflow-hidden"
-            style={{
-              maskImage: "linear-gradient(to bottom, #000 62%, transparent 99%), linear-gradient(to right, #000 92%, transparent 100%)",
-              maskComposite: "intersect",
-              WebkitMaskImage: "linear-gradient(to bottom, #000 62%, transparent 99%), linear-gradient(to right, #000 92%, transparent 100%)",
-              WebkitMaskComposite: "source-in",
-            }}
-          >
+          {/* The asset's own edges are blended to --page, so the photograph
+              has no boundary: no frame, no scrim, no mask needed here. */}
+          <div className="relative aspect-[3/4] overflow-hidden">
             <Image
               src={profile.photo}
               alt={`${profile.name}, ${profile.headline}`}
               fill
               priority
               sizes="(max-width: 768px) 90vw, 380px"
-              className="object-cover object-[62%_20%]"
+              className="object-cover"
             />
           </div>
           <div className="mt-3 flex items-center justify-between">

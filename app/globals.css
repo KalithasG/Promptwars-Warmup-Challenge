@@ -3,17 +3,18 @@
 /*
  * The palette is sampled from the portrait itself: its ground (#d8d8d8 with a
  * warm cast), the splatter black, and the mid-greys of the shirt. Because the
- * page and the photograph share a ground, the image sits in the layout rather
- * than on top of it — no frame, no scrim needed.
+ * page and the photograph share exactly one ground colour, the image sits in
+ * the layout rather than on top of it: its own edges are blended to --page in
+ * the asset itself, so there is no boundary to see.
  */
 :root {
-  --page: #d9d8d2;        /* the photograph's own ground */
-  --surface: #e3e2dd;     /* raised panel */
-  --sunken: #cecdc6;
+  --page: #d9d8d6;        /* sampled from the photograph's border, exactly */
+  --surface: #e2e1df;     /* raised panel */
+  --sunken: #cdccca;
   --ink: #0b0b0b;         /* splatter black */
-  --ink-soft: #3d3d3a;    /* mid-tone from the shirt */
-  --muted: #6b6a64;
-  --rule: #c1c0b8;
+  --ink-soft: #3d3d3b;    /* mid-tone from the shirt */
+  --muted: #6a6a67;
+  --rule: #c0bfbc;
   --accent: #0b0b0b;      /* monochrome by design: emphasis is weight, not hue */
   --accent-soft: #17171a;
 }
@@ -85,11 +86,14 @@ body {
   line-height: 0.88;
 }
 
-/* Paper grain, matching the photograph's own texture. */
+/* Paper grain, matching the photograph's own texture. It sits ABOVE the
+   content so the photograph and the page around it receive the same grain —
+   otherwise the image reads as a lighter block floating on the page. */
 .grain::after {
   content: "";
   position: absolute;
   inset: 0;
+  z-index: 20;
   pointer-events: none;
   opacity: 0.05;
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3'/%3E%3C/filter%3E%3Crect width='140' height='140' filter='url(%23n)'/%3E%3C/svg%3E");

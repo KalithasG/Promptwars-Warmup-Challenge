@@ -82,13 +82,9 @@ export default function Hero3D() {
     <div
       aria-hidden="true"
       className="pointer-events-none absolute inset-0 z-0"
-      // A gradient stands in before (and instead of) the canvas, so the hero
-      // never renders as a bare white box.
-      style={{
-        background:
-          "radial-gradient(120% 90% at 72% 8%, rgba(11,11,11,0.07), transparent 58%)," +
-          "radial-gradient(90% 80% at 15% 85%, rgba(11,11,11,0.05), transparent 62%)",
-      }}
+      // No tint here: anything that darkens the hero ground would darken the
+      // page around the photograph but not the photograph itself, and the two
+      // grounds have to stay identical.
     >
       {/* Full-bleed texture rather than a feature: the graph reads behind the
           whole hero, dimmed enough that the type always wins. */}
@@ -105,12 +101,12 @@ export default function Hero3D() {
 
       {/* Type must win over decoration: an even veil, heavier on small screens
           where the copy spans the full width. */}
-      <div className="absolute inset-0 md:hidden" style={{ background: "rgba(217,216,210,0.80)" }} />
+      <div className="absolute inset-0 md:hidden" style={{ background: "rgba(217,216,214,0.80)" }} />
       <div
         className="absolute inset-0 hidden md:block"
         style={{
           background:
-            "linear-gradient(90deg, rgba(217,216,210,0.94) 0%, rgba(217,216,210,0.80) 34%, rgba(217,216,210,0.25) 60%, rgba(217,216,210,0.05) 100%)",
+            "linear-gradient(90deg, rgba(217,216,214,0.94) 0%, rgba(217,216,214,0.80) 34%, rgba(217,216,214,0.25) 60%, rgba(217,216,214,0.05) 100%)",
         }}
       />
     </div>
