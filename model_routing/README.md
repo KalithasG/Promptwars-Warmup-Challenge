@@ -1,11 +1,10 @@
-# Promptwar — Gemini Latency Router
+# Portfolio Development — Gemini Latency Router
 
 A latency-controlled model router for the Gemini API. Classifies each prompt,
 routes it to the right speed/quality tier, and **auto-falls-back to a faster
 model** if one is slow or errors — so end-to-end latency stays bounded.
 
-Built for PromptWars Chennai (25 Jul 2026). Topic is revealed on the day, so
-this is a reusable "launch pad" — drop `router/` into whatever you build.
+A reusable launch pad — drop `router/` into whatever you build.
 
 ## Layout
 
@@ -19,15 +18,15 @@ upward for it automatically, so scripts work from here.
 cd model_routing
 pip install -r requirements.txt
 python probe_models.py      # confirm which models your key can call
-python benchmark.py         # measure REAL latency per model at the venue
+python benchmark.py         # measure REAL latency per model on your network
 python demo.py              # see routing + fallback in action
 ```
 
-## Backend API (scaffold for the hackathon)
+## Backend API (scaffold)
 
 `api.py` is a ready FastAPI server with a `/generate` endpoint already calling
-the router. Tomorrow you edit **only** `build_prompt()` — drop the secret
-topic's logic there; routing + latency fallback are done.
+the router. You edit **only** `build_prompt()` — drop your project's logic
+there; routing + latency fallback are done.
 
 ```bash
 uvicorn api:app --reload --port 8000
@@ -87,7 +86,7 @@ QUALITY chain in `config.py`.
 
 HTTPS is being intercepted by a local proxy/antivirus, so requests fail cert
 verification. `.env` sets `GEMINI_INSECURE_TLS=true` as the escape hatch. On a
-clean network at the venue, remove that line for full TLS verification.
+clean network, remove that line for full TLS verification.
 
 ## Files
 

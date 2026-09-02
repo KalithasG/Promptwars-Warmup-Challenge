@@ -1,7 +1,7 @@
 /**
  * Measure REAL latency of each candidate model on your key + network.
  *
- * Run this at the venue BEFORE building — the numbers decide which models
+ * Run this BEFORE building — the numbers decide which models
  * belong in each tier in src/config.ts. Latency varies by network, region, and
  * model load, so trust measured numbers over labels.
  *

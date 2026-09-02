@@ -3,7 +3,7 @@
  *
  * Picks a tier from the prompt using cheap heuristics only — NO extra API call,
  * because calling a model just to route would add the very latency we're trying
- * to avoid. Good enough for a hackathon; tune the keyword lists as needed.
+ * to avoid. Good enough in practice; tune the keyword lists as needed.
  *
  * Returns one of: "fast" | "balanced" | "quality".
  */

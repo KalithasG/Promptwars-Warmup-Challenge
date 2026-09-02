@@ -8,7 +8,7 @@
  *   npm run probe            # probe the default candidate set
  *   npm run probe -- --all   # probe every generateContent model
  *
- * Run this first thing at the venue, especially if you swap keys.
+ * Run this first thing on a new machine, especially if you swap keys.
  */
 import { GoogleGenAI } from "@google/genai";
 

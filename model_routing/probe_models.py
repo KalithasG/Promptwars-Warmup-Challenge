@@ -9,7 +9,7 @@ ground truth for what you can use.
     python probe_models.py                 # probe the default candidate set
     python probe_models.py --all           # probe every generateContent model
 
-Run this first thing at the venue, especially if you swap to a new key.
+Run this first thing on a new machine, especially if you swap to a new key.
 """
 from __future__ import annotations
 

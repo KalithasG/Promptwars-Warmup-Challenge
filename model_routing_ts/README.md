@@ -1,4 +1,4 @@
-# Promptwar — Gemini Latency Router (TypeScript)
+# Portfolio Development — Gemini Latency Router (TypeScript)
 
 TypeScript mirror of the Python `model_routing/` package. Classifies each
 prompt, routes it to the right speed/quality tier, and **auto-falls-back to a
@@ -13,17 +13,17 @@ the project root — the loader searches upward for it.
 cd model_routing_ts
 npm install
 npm run probe      # confirm which models your key can call
-npm run bench      # measure REAL latency per model at the venue
+npm run bench      # measure REAL latency per model on your network
 npm run demo       # see routing + fallback in action
 ```
 
 Runs on `tsx` (no build step). Node 18+.
 
-## Backend API (scaffold for the hackathon)
+## Backend API (scaffold)
 
 `server.ts` is a ready Express server with a `/generate` endpoint already
-calling the router. Tomorrow you edit **only** `buildPrompt()` — drop the
-secret topic's logic there; routing + latency fallback are done.
+calling the router. You edit **only** `buildPrompt()` — drop your project's
+logic there; routing + latency fallback are done.
 
 ```bash
 npm start                 # http://localhost:3000
@@ -76,7 +76,7 @@ balanced/quality primary. No Pro tier. Add Pro back with a billing key.
 
 HTTPS is intercepted by a local proxy/antivirus, so requests fail cert
 verification. `.env` sets `GEMINI_INSECURE_TLS=true`; `src/env.ts` turns that
-into `NODE_TLS_REJECT_UNAUTHORIZED=0`. Remove it on a clean network at the venue.
+into `NODE_TLS_REJECT_UNAUTHORIZED=0`. Remove it on a clean network.
 
 ## Files (mirror of the Python package)
 

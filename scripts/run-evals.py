@@ -33,7 +33,7 @@ def test_classifier_heuristics():
     return passed == len(test_cases)
 
 def main():
-    print("--- Running Promptwar Routing Evals ---")
+    print("--- Running Portfolio Development Routing Evals ---")
     ok = test_classifier_heuristics()
     if ok:
         print("✅ Evals suite completed successfully.")

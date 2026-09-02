@@ -1,7 +1,7 @@
 """
 Measure REAL latency of each candidate model on your key + network.
 
-Run this at the venue tomorrow BEFORE you start building — the numbers here
+Run this BEFORE you start building — the numbers here
 decide which models belong in each tier in router/config.py. Latency varies
 by network, region, and model load, so trust measured numbers over labels.
 

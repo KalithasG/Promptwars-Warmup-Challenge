@@ -11,7 +11,7 @@
  *        -H "content-type: application/json" \
  *        -d '{"input": "explain APIs in one line"}'
  *
- * TOMORROW: you only edit buildPrompt() below. The whole routing + latency
+ * You only edit buildPrompt() below. The whole routing + latency
  * fallback layer already works — don't touch src/ under time pressure.
  */
 import express from "express";
@@ -26,7 +26,7 @@ const router = new GeminiRouter({ systemInstruction: "You are a helpful, concise
 
 function buildPrompt(userInput: string): string {
   // =====================================================================
-  // TODO (hackathon): put your TOPIC-SPECIFIC logic here.
+  // TODO: put your TOPIC-SPECIFIC logic here.
   // Transform the raw request into the prompt you actually want to send —
   // add instructions, few-shot examples, retrieved context, formatting, etc.
   // Everything downstream (tier selection, latency fallback) is handled.
@@ -57,5 +57,5 @@ app.post("/generate", async (req, res) => {
 
 const port = Number(process.env.PORT ?? 3000);
 app.listen(port, () => {
-  console.log(`Promptwar API on http://localhost:${port}`);
+  console.log(`Portfolio Development API on http://localhost:${port}`);
 });

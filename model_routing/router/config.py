@@ -11,7 +11,7 @@ IMPORTANT — models below were VERIFIED callable on this key on 2026-07-24:
   * The Pro models (gemini-pro-latest, gemini-3-pro-preview) return 429
     RESOURCE_EXHAUSTED — the free tier has no Pro quota. So NO Pro tier here.
   * The gemini-3.x FLASH family works and is what every tier uses.
-If you switch to a paid/billing-enabled key at the venue, re-run
+If you switch to a paid/billing-enabled key, re-run
 `python probe_models.py` and add Pro back into the QUALITY tier.
 """
 from __future__ import annotations
