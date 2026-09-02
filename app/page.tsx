@@ -45,18 +45,18 @@ function Nav() {
     ["Experience", "#experience"],
     ["Projects", "#projects"],
     ["Skills", "#skills"],
+    ["Ask", "#ask"],
     ["Contact", "#contact"],
   ];
 
   return (
     <header className="material sticky top-0 z-50 border-b border-separator">
-      <nav className="mx-auto flex h-12 max-w-5xl items-center gap-6 px-6">
-        <a href="#top" className="text-[0.95rem] font-semibold tracking-[-0.01em]">
-          {profile.shortName}
-        </a>
-        <ul className="hidden flex-1 items-center justify-center gap-7 md:flex">
+      <nav className="relative mx-auto flex h-12 max-w-5xl items-center">
+        {/* Centred on the bar itself. The appearance control is taken out of
+            the flow so it cannot pull the links off-centre. */}
+        <ul className="flex w-full items-center justify-start gap-5 overflow-x-auto pl-5 pr-2 mr-12 [mask-image:linear-gradient(to_right,#000_88%,transparent)] [scrollbar-width:none] md:mr-0 md:justify-center md:gap-8 md:px-12 md:[mask-image:none] [&::-webkit-scrollbar]:hidden">
           {links.map(([label, href]) => (
-            <li key={href}>
+            <li key={href} className="shrink-0">
               <a
                 href={href}
                 className="text-[0.8125rem] text-label-2 transition-colors hover:text-label"
@@ -66,10 +66,7 @@ function Nav() {
             </li>
           ))}
         </ul>
-        <div className="ml-auto flex items-center gap-2 md:ml-0">
-          <a href="#ask" className="text-[0.8125rem] text-accent md:hidden">
-            Ask
-          </a>
+        <div className="absolute right-4 top-1/2 -translate-y-1/2">
           <ThemeToggle />
         </div>
       </nav>
